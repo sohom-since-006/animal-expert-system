@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animal Classification Expert System v2 — AI Portfolio</title>
+  <meta name="description" content="Hybrid AI Expert System for Animal Classification with Image Recognition, Voice Input, Explainable AI, and Interactive Taxonomy Tree.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>body{font-family:'Inter',system-ui,sans-serif;}</style>
+</head>
+<body>
+  <!-- Animated particle canvas background -->
+  <canvas id="particles"></canvas>
+
+  <div class="app">
+    <!-- ═══════════════════ TOPBAR ═══════════════════ -->
+    <nav class="topbar">
+      <div class="topbar-inner container">
+        <div class="brand">
+          <div class="brand-icon">🧠</div>
+          <div>
+            <div style="font-size:1rem">Animal Expert System <span class="brand-tag">v2.0</span></div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <button class="nav-btn active" data-section="wizard">🔮 Wizard</button>
+          <button class="nav-btn" data-section="image">📸 Image AI</button>
+          <button class="nav-btn" data-section="voice">🎙️ Voice</button>
+          <button class="nav-btn" data-section="taxonomy">🌳 Taxonomy</button>
+          <button class="nav-btn" data-section="encyclopedia">📚 Encyclopedia</button>
+          <button class="nav-btn" data-section="history">📜 History</button>
+          <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light">☀️</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <header class="hero container">
+      <h1>AI Animal Classification<br>Expert System</h1>
+      <p>Identify any animal through <strong>intelligent rules</strong>, <strong>machine learning</strong>, <strong>computer vision</strong>, or <strong>voice</strong> — with fully explainable reasoning.</p>
+      <div class="stats-row">
+        <div class="stat-chip">Classes: <strong id="statClasses">—</strong></div>
+        <div class="stat-chip">Orders: <strong id="statOrders">—</strong></div>
+        <div class="stat-chip">Species: <strong id="statSpecies">—</strong></div>
+        <div class="stat-chip">Classifications: <strong id="statClassifications">—</strong></div>
+        <div class="stat-chip">AI Image: <strong style="color:var(--accent)">{{ '✅ Active' if torch_available else '⏸️ Install PyTorch' }}</strong></div>
+      </div>
+    </header>
+
+    <main class="container" style="padding-bottom:4rem">
+
+      <!-- ═══════════════════ SECTION: WIZARD ═══════════════════ -->
+      <section id="sec-wizard" class="section active">
+        <div class="wizard-layout">
+          <!-- LEFT: Wizard -->
+          <div>
+            <div class="progress-track"><div class="progress-bar" id="progressFill" style="width:0%"></div></div>
+
+            <div class="stepper">
+              <div class="step active" id="s1"><div class="step-num">1</div><span>Backbone</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s2"><div class="step-num">2</div><span>Temperature</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s3"><div class="step-num">3</div><span>Covering</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s4"><div class="step-num">4</div><span>Reproduction</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s5"><div class="step-num">5</div><span>Diet</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s6"><div class="step-num">6</div><span>Wings</span></div>
+              <div class="step-divider"></div>
+              <div class="step" id="s7"><div class="step-num">7</div><span>Habitat</span></div>
+            </div>
+
+            <!-- Panels -->
+            <div>
+              <!-- Panel 1 -->
+              <div class="panel active" id="panel-1">
+                <div class="q-num">Question 1 of 7</div>
+                <h3>Does the animal have a backbone?</h3>
+                <p>Vertebrates possess an internal skeleton with a spinal column.</p>
+                <div class="yn-grid">
+                  <button class="opt-btn yn-btn" data-field="has_backbone" data-val="1" onclick="selectYN(this)">
+                    <span class="opt-icon">🦴</span>
+                    <span class="opt-label">Yes — Vertebrate</span>
+                    <span class="opt-sub">Has spine / skeleton</span>
+                  </button>
+                  <button class="opt-btn yn-btn" data-field="has_backbone" data-val="0" onclick="selectYN(this)">
+                    <span class="opt-icon">🪱</span>
+                    <span class="opt-label">No — Invertebrate</span>
+                    <span class="opt-sub">No spinal column</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 2 -->
+              <div class="panel" id="panel-2">
+                <div class="q-num">Question 2 of 7</div>
+                <h3>Is the animal warm-blooded?</h3>
+                <p>Warm-blooded animals regulate body temperature internally regardless of environment.</p>
+                <div class="yn-grid">
+                  <button class="opt-btn yn-btn" data-field="warm_blooded" data-val="1" onclick="selectYN(this)">
+                    <span class="opt-icon">🌡️</span>
+                    <span class="opt-label">Warm-blooded</span>
+                    <span class="opt-sub">Mammals & Birds</span>
+                  </button>
+                  <button class="opt-btn yn-btn" data-field="warm_blooded" data-val="0" onclick="selectYN(this)">
+                    <span class="opt-icon">❄️</span>
+                    <span class="opt-label">Cold-blooded</span>
+                    <span class="opt-sub">Reptiles, Fish, Insects, etc.</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 3 -->
+              <div class="panel" id="panel-3">
+                <div class="q-num">Question 3 of 7</div>
+                <h3>What covers the animal's body?</h3>
+                <p>Select the primary external covering or skin type observed.</p>
+                <div class="opt-grid">
+                  <button class="opt-btn" data-field="body_covering" data-val="fur" onclick="selectOpt(this)">
+                    <span class="opt-icon">🐻</span><span class="opt-label">Fur / Hair</span><span class="opt-sub">Typical of mammals</span>
+                  </button>
+                  <button class="opt-btn" data-field="body_covering" data-val="feathers" onclick="selectOpt(this)">
+                    <span class="opt-icon">🦜</span><span class="opt-label">Feathers</span><span class="opt-sub">Exclusive to birds</span>
+                  </button>
+                  <button class="opt-btn" data-field="body_covering" data-val="scales" onclick="selectOpt(this)">
+                    <span class="opt-icon">🐍</span><span class="opt-label">Scales (dry)</span><span class="opt-sub">Reptiles & most fish</span>
+                  </button>
+                  <button class="opt-btn" data-field="body_covering" data-val="moist_skin" onclick="selectOpt(this)">
+                    <span class="opt-icon">🐸</span><span class="opt-label">Moist Skin</span><span class="opt-sub">Amphibians</span>
+                  </button>
+                  <button class="opt-btn" data-field="body_covering" data-val="shell" onclick="selectOpt(this)">
+                    <span class="opt-icon">🐢</span><span class="opt-label">Shell / Exoskeleton</span><span class="opt-sub">Turtles, crustaceans</span>
+                  </button>
+                  <button class="opt-btn" data-field="body_covering" data-val="none" onclick="selectOpt(this)">
+                    <span class="opt-icon">🦗</span><span class="opt-label">Bare / Chitin</span><span class="opt-sub">Insects, arachnids, etc.</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 4 -->
+              <div class="panel" id="panel-4">
+                <div class="q-num">Question 4 of 7</div>
+                <h3>How does the animal reproduce?</h3>
+                <p>Select the primary reproductive strategy.</p>
+                <div class="opt-grid">
+                  <button class="opt-btn" data-field="reproduction" data-val="live_birth" onclick="selectOpt(this)">
+                    <span class="opt-icon">👶</span><span class="opt-label">Live Birth</span><span class="opt-sub">Gives birth to young</span>
+                  </button>
+                  <button class="opt-btn" data-field="reproduction" data-val="eggs_land" onclick="selectOpt(this)">
+                    <span class="opt-icon">🥚</span><span class="opt-label">Eggs (on land)</span><span class="opt-sub">Birds, reptiles, insects</span>
+                  </button>
+                  <button class="opt-btn" data-field="reproduction" data-val="eggs_water" onclick="selectOpt(this)">
+                    <span class="opt-icon">🫧</span><span class="opt-label">Eggs (in water)</span><span class="opt-sub">Fish, amphibians, crustaceans</span>
+                  </button>
+                  <button class="opt-btn" data-field="reproduction" data-val="metamorphosis" onclick="selectOpt(this)">
+                    <span class="opt-icon">🦋</span><span class="opt-label">Metamorphosis</span><span class="opt-sub">Complete life-cycle change</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 5 -->
+              <div class="panel" id="panel-5">
+                <div class="q-num">Question 5 of 7</div>
+                <h3>What is the animal's diet?</h3>
+                <p>What does this animal primarily consume?</p>
+                <div class="opt-grid">
+                  <button class="opt-btn" data-field="diet" data-val="carnivore" onclick="selectOpt(this)">
+                    <span class="opt-icon">🥩</span><span class="opt-label">Carnivore</span><span class="opt-sub">Meat / other animals</span>
+                  </button>
+                  <button class="opt-btn" data-field="diet" data-val="herbivore" onclick="selectOpt(this)">
+                    <span class="opt-icon">🌿</span><span class="opt-label">Herbivore</span><span class="opt-sub">Plants and vegetation</span>
+                  </button>
+                  <button class="opt-btn" data-field="diet" data-val="omnivore" onclick="selectOpt(this)">
+                    <span class="opt-icon">🍽️</span><span class="opt-label">Omnivore</span><span class="opt-sub">Plants & animals</span>
+                  </button>
+                  <button class="opt-btn" data-field="diet" data-val="insectivore" onclick="selectOpt(this)">
+                    <span class="opt-icon">🐜</span><span class="opt-label">Insectivore</span><span class="opt-sub">Primarily insects</span>
+                  </button>
+                  <button class="opt-btn" data-field="diet" data-val="any" onclick="selectOpt(this)">
+                    <span class="opt-icon">❓</span><span class="opt-label">Unknown / Other</span><span class="opt-sub">Skip this trait</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 6 -->
+              <div class="panel" id="panel-6">
+                <div class="q-num">Question 6 of 7</div>
+                <h3>Does the animal have functional wings?</h3>
+                <p>Wings adapted for flight (not just wing-like fins).</p>
+                <div class="yn-grid">
+                  <button class="opt-btn yn-btn" data-field="has_wings" data-val="1" onclick="selectYN(this)">
+                    <span class="opt-icon">🦅</span>
+                    <span class="opt-label">Yes — Has Wings</span>
+                    <span class="opt-sub">Can fly or glide</span>
+                  </button>
+                  <button class="opt-btn yn-btn" data-field="has_wings" data-val="0" onclick="selectYN(this)">
+                    <span class="opt-icon">🚫</span>
+                    <span class="opt-label">No Wings</span>
+                    <span class="opt-sub">Wingless / flightless</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel 7 -->
+              <div class="panel" id="panel-7">
+                <div class="q-num">Question 7 of 7</div>
+                <h3>Is the animal primarily aquatic?</h3>
+                <p>Does it live mainly in water or on land?</p>
+                <div class="yn-grid">
+                  <button class="opt-btn yn-btn" data-field="aquatic" data-val="1" onclick="selectYN(this)">
+                    <span class="opt-icon">🌊</span>
+                    <span class="opt-label">Aquatic</span>
+                    <span class="opt-sub">Lives in water (ocean, river, lake)</span>
+                  </button>
+                  <button class="opt-btn yn-btn" data-field="aquatic" data-val="0" onclick="selectYN(this)">
+                    <span class="opt-icon">🏔️</span>
+                    <span class="opt-label">Terrestrial</span>
+                    <span class="opt-sub">Lives on land</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nav buttons -->
+            <div class="nav-row">
+              <button class="btn btn-outline" id="btnBack" onclick="goBack()" style="display:none">← Back</button>
+              <span></span>
+              <div style="display:flex;gap:0.7rem">
+                <button class="btn btn-danger" onclick="resetAll()">Reset</button>
+                <button class="btn btn-primary" id="btnNext" onclick="goNext()" disabled>Next →</button>
+                <button class="btn btn-primary" id="btnClassify" onclick="runClassify()" style="display:none">🔬 Classify!</button>
+              </div>
+            </div>
+
+            <div class="toast" id="errorBox"></div>
+            <div class="spinner-wrap" id="spinner"><div class="spinner"></div>Analysing with hybrid AI...</div>
+            <div id="resultPanel" style="margin-top:1.5rem;display:none"></div>
+          </div>
+
+          <!-- RIGHT: Trait sidebar -->
+          <div>
+            <div class="glass trait-sidebar">
+              <h4>📋 Trait Summary</h4>
+              <div class="trait-row"><span class="trait-key">Backbone</span><span class="trait-val empty" id="t-backbone">—</span></div>
+              <div class="trait-row"><span class="trait-key">Temperature</span><span class="trait-val empty" id="t-warmblood">—</span></div>
+              <div class="trait-row"><span class="trait-key">Body Covering</span><span class="trait-val empty" id="t-covering">—</span></div>
+              <div class="trait-row"><span class="trait-key">Reproduction</span><span class="trait-val empty" id="t-repro">—</span></div>
+              <div class="trait-row"><span class="trait-key">Diet</span><span class="trait-val empty" id="t-diet">—</span></div>
+              <div class="trait-row"><span class="trait-key">Wings</span><span class="trait-val empty" id="t-wings">—</span></div>
+              <div class="trait-row"><span class="trait-key">Habitat</span><span class="trait-val empty" id="t-aquatic">—</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ SECTION: IMAGE AI ═══════════════════ -->
+      <section id="sec-image" class="section">
+        <div class="section-title">📸 Image-Based Identification</div>
+        <p class="section-sub">Upload or drag-and-drop an animal photo. Our AI model (MobileNetV2) will classify it into our taxonomy with species-level detail.</p>
+
+        <div class="glass dropzone" id="dropzone">
+          <span class="dropzone-icon">📤</span>
+          <p><strong>Drop an image here</strong> or click to browse</p>
+          <div class="dz-hint">Supports JPG, PNG, WEBP · Max 16MB</div>
+          <input type="file" id="fileInput" accept="image/*" hidden>
+        </div>
+
+        <div class="preview-wrap" id="imgPreviewWrap" style="display:none">
+          <img id="imgPreview" src="" alt="Preview" style="max-width:100%;border-radius:12px;margin-bottom:1rem">
+        </div>
+
+        <div class="spinner-wrap" id="imgSpinner"><div class="spinner"></div>Running neural network inference...</div>
+        <div class="toast" id="imgError"></div>
+        <div id="imgResult" style="margin-top:1.5rem"></div>
+      </section>
+
+      <!-- ═══════════════════ SECTION: VOICE ═══════════════════ -->
+      <section id="sec-voice" class="section">
+        <div class="section-title">🎙️ Voice-Based Identification</div>
+        <p class="section-sub">Describe the animal out loud. The system extracts traits from your speech and runs hybrid classification.</p>
+
+        <div class="text-center" style="padding:2rem 0">
+          <button class="voice-btn" id="voiceBtn">
+            <div class="voice-ripple"></div>
+            🎤
+          </button>
+          <p class="voice-status" id="voiceStatus">Tap microphone to start speaking</p>
+        </div>
+
+        <div class="voice-transcript" id="voiceTranscript" style="display:none"></div>
+
+        <div class="spinner-wrap" id="voiceSpinner"><div class="spinner"></div>Parsing speech & classifying...</div>
+        <div class="toast" id="voiceError"></div>
+        <div id="voiceResult" style="margin-top:1.5rem"></div>
+      </section>
+
+      <!-- ═══════════════════ SECTION: TAXONOMY TREE ═══════════════════ -->
+      <section id="sec-taxonomy" class="section">
+        <div class="section-title">🌳 Interactive Taxonomy Tree</div>
+        <p class="section-sub">Explore the biological hierarchy: Class → Order → Species. Click any species to view its full profile.</p>
+        <div id="taxonomyWrap" style="margin-top:1rem"></div>
+      </section>
+
+      <!-- ═══════════════════ SECTION: ENCYCLOPEDIA ═══════════════════ -->
+      <section id="sec-encyclopedia" class="section">
+        <div class="section-title">📚 Animal Encyclopedia</div>
+        <p class="section-sub">Search our database of species with habitat, diet, lifespan, distribution, and conservation status.</p>
+
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search by common or scientific name..." autocomplete="off">
+        </div>
+
+        <div class="encyclo-grid" id="encycloGrid"></div>
+      </section>
+
+      <!-- ═══════════════════ SECTION: HISTORY ═══════════════════ -->
+      <section id="sec-history" class="section">
+        <div class="section-title">📜 Classification History</div>
+        <p class="section-sub">Audit trail of every classification run via wizard, image AI, or voice input.</p>
+
+        <div class="glass" style="padding:1rem;overflow-x:auto">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Time</th><th>Mode</th><th>Result</th><th>Species</th><th>Confidence</th><th>ML Conf</th>
+              </tr>
+            </thead>
+            <tbody id="historyTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════ SPECIES MODAL ═══════════════════ -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Species Profile</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a060bda68c6f3c33',t:'MTc4MDUxMTEzMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

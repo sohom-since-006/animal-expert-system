@@ -1,0 +1,20 @@
+# ── Core Web ──────────────────────────────────────────────────
+Flask==3.0.3
+Werkzeug==3.0.3
+
+# ── ML / AI (Lightweight) ─────────────────────────────────────
+scikit-learn==1.5.1
+numpy==1.26.4
+joblib==1.4.2
+
+# ── Image Processing ──────────────────────────────────────────
+Pillow==10.4.0
+
+# ── Deep Learning (Optional - for image classification) ───────
+# torch==2.3.1
+# torchvision==0.18.1
+# To enable AI image classification, uncomment above and run:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# ── Production Server ─────────────────────────────────────────
+gunicorn==23.0.0

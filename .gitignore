@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Database (optional — if you want fresh DB on clone, keep this)
+data/*.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML models (large files)
+data/*.pkl
+*.pth
+*.onnx
