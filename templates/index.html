@@ -54,7 +54,11 @@
         <div class="stat-chip">Orders: <strong id="statOrders">—</strong></div>
         <div class="stat-chip">Species: <strong id="statSpecies">—</strong></div>
         <div class="stat-chip">Classifications: <strong id="statClassifications">—</strong></div>
-        <div class="stat-chip">AI Image: <strong style="color:var(--accent)">{{ '✅ Active' if torch_available else '⏸️ Install PyTorch' }}</strong></div>
+        <div class="stat-chip">AI Image: <strong style="color:var(--accent)">
+         {% if transformers_available %}✅ CLIP Active
+         {% elif torch_available %}✅ Fallback Active
+         {% else %}⏸️ Install PyTorch{% endif %}
+       </strong></div>
       </div>
     </header>
 

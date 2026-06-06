@@ -30,7 +30,7 @@ from rule_engine import classify_with_ml
 from ml_engine import predict as ml_predict
 
 # Image AI (optional)
-from image_classifier import classify_image, TORCH_AVAILABLE
+from image_classifier import classify_image, TRANSFORMERS_AVAILABLE, TORCH_AVAILABLE
 
 app = Flask(__name__, static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload
@@ -56,6 +56,7 @@ def index():
     """Serve the single-page application."""
     return render_template("index.html",
                            torch_available=TORCH_AVAILABLE,
+                           transformers_available=TRANSFORMERS_AVAILABLE,
                            build_date=datetime.now().strftime("%Y-%m-%d"))
 
 
@@ -326,7 +327,7 @@ def api_stats():
         "orders": c.execute("SELECT COUNT(*) FROM taxonomy_orders").fetchone()[0],
         "species": c.execute("SELECT COUNT(*) FROM species").fetchone()[0],
         "classifications": c.execute("SELECT COUNT(*) FROM classification_history").fetchone()[0],
-        "image_ai_available": TORCH_AVAILABLE,
+        "image_ai_available": TRANSFORMERS_AVAILABLE or TORCH_AVAILABLE,
     }
     conn.close()
     return jsonify({"success": True, "stats": stats})
