@@ -17,6 +17,20 @@
 
 A production-grade **Animal Classification Expert System** combining classical AI (rule-based expert systems) with modern machine learning, computer vision, and natural language processing. Built as a portfolio piece demonstrating full-stack AI engineering skills.
 
+## 📸 Screenshots
+
+| Wizard Classification | Image AI Recognition |
+|---|---|
+| ![Wizard](screenshots/wizard.png) | ![Image AI](screenshots/image-ai.png) |
+
+| Voice Input | Taxonomy Tree |
+|---|---|
+| ![Voice](screenshots/voice.png) | ![Taxonomy](screenshots/taxonomy.png) |
+
+| Encyclopedia | Dark / Light Mode |
+|---|---|
+| ![Encyclopedia](screenshots/encyclopedia.png) | ![Dark Mode](screenshots/dark-mode.png) |
+
 ## 🚀 Features
 
 | Module | Description | Tech Highlight |
