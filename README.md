@@ -29,7 +29,7 @@ A production-grade **Animal Classification Expert System** combining classical A
 
 | Encyclopedia | Dark / Light Mode |
 |---|---|
-| ![Encyclopedia](screenshots/encyclopedia.png) | ![Dark Mode](screenshots/dark-mode.png) |
+| ![Encyclopedia](screenshots/encyclopedia.png) | ![Light Mode](screenshots/lightmode.png) |
 
 ## 🚀 Features
 
