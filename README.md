@@ -118,9 +118,6 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 4. **Taxonomy Tree**: Click through biological hierarchy and inspect any species profile in a glassmorphism modal
 5. **History**: Review every past classification with timestamps and confidence scores
 
-## 📸 Screenshots
-
-*(Add screenshots here after deploying)*
 
 ## 📚 Key Concepts Demonstrated
 
