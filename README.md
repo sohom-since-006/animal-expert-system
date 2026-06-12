@@ -13,6 +13,10 @@
 
 ---
 
+## 🚀 Live Demo
+
+[Click here to use the app](https://ai-animal-classification.onrender.com)
+
 ## ✨ Overview
 
 A production-grade **Animal Classification Expert System** combining classical AI (rule-based expert systems) with modern machine learning, computer vision, and natural language processing. Built as a portfolio piece demonstrating full-stack AI engineering skills.
@@ -41,7 +45,7 @@ A production-grade **Animal Classification Expert System** combining classical A
 | **📸 Image AI** | Upload any animal photo for instant identification | MobileNetV2 + ImageNet taxonomy mapping |
 | **🎙️ Voice Input** | Speak a description; traits are auto-extracted | Web Speech API + heuristic NLP parser |
 | **🌳 Taxonomy Tree** | Interactive nested tree: Class → Order → Species | Recursive data viz + dynamic DOM rendering |
-| **📚 Encyclopedia** | Searchable database of 20+ species with conservation status, habitat, lifespan | Rich SQLite schema |
+| **📚 Encyclopedia** | Searchable database of 82 species with conservation status, habitat, lifespan | Rich SQLite schema |
 | **📜 Audit History** | Complete log of every classification (wizard / image / voice) | Full audit trail for compliance |
 
 ## 🛠️ Tech Stack
@@ -69,7 +73,7 @@ A production-grade **Animal Classification Expert System** combining classical A
 ```
 animal_expert_system_v2/
 ├── app.py                  # Flask application + all API routes
-├── database.py             # SQLite ORM + seed data (20+ species)
+├── database.py             # SQLite ORM + seed data (82 species)
 ├── rule_engine.py          # Forward-chaining expert system with explainability
 ├── ml_engine.py            # Random Forest hybrid classifier
 ├── image_classifier.py     # PyTorch MobileNetV2 wrapper + taxonomy mapping
@@ -89,8 +93,8 @@ animal_expert_system_v2/
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/animal-expert-system.git
-cd animal-expert-system
+git clone https://github.com/sohom-since-006/AI-animal-classification-system.git
+cd AI-animal-classification-system
 
 # 2. Create virtual environment
 python -m venv venv
@@ -112,12 +116,11 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
 ## 🎯 Demo Walkthrough
 
-1. **Wizard Mode**: Answer 7 animated questions → get species-level result with confidence % and full rule trace
+1. **Wizard Mode**: Answer 7 questions → get species-level result with confidence % and full rule trace
 2. **Image Mode**: Drag a tiger photo → AI returns "Tiger · Panthera tigris · 96% confidence" with habitat & conservation data
 3. **Voice Mode**: Say "It has fur, gives live birth, eats meat" → traits extracted → classified as Mammal/Carnivora
 4. **Taxonomy Tree**: Click through biological hierarchy and inspect any species profile in a glassmorphism modal
 5. **History**: Review every past classification with timestamps and confidence scores
-
 
 ## 📚 Key Concepts Demonstrated
 
@@ -129,11 +132,11 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
 ## 🏗️ Future Roadmap
 
+- [x] Deploy to Render (Free tier live at https://ai-animal-classification.onrender.com)
 - [ ] Fine-tune custom CNN on domain-specific animal dataset
 - [ ] Add user authentication + saved collections
-- [ ] Deploy to Render / Railway / AWS Elastic Beanstalk
 - [ ] Add 3D model viewer for species anatomy
-- [ ] i18n: support Hindi, Spanish, Mandarin
+- [ ] i18n: support diffrent languages
 
 ## 📝 License
 
